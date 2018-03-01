@@ -1,55 +1,35 @@
 <?xml version="1.0"?>
 <robot>
-  <gazebo reference="cutter">
-    <material>Gazebo/Orange</material>
-    </gazebo>
   <gazebo reference="chassis">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
-  <gazebo reference="left_back_wheel">
+  <gazebo reference="left_wheel">
     <material>Gazebo/Black</material>
   </gazebo>
-  <gazebo reference="right_back_wheel">
+  <gazebo reference="right_wheel">
     <material>Gazebo/Black</material>
   </gazebo>
-  <gazebo reference="left_front_wheel">
-    <material>Gazebo/Black</material>
-  </gazebo>
-  <gazebo reference="right_front_wheel">
-    <material>Gazebo/Black</material>
-  </gazebo>
-
 
   <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    <robotNamespace>/</robotNamespace>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>10</updateRate>
+      <leftJoint>left_wheel_hinge</leftJoint>
+      <rightJoint>right_wheel_hinge</rightJoint>
+      <wheelSeparation>0.4</wheelSeparation>
+      <wheelDiameter>0.16</wheelDiameter>
+      <torque>1000</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>robot_footprint</robotBaseFrame>
     </plugin>
   </gazebo>
 
 
-
-  <gazebo>
-  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-    <updateRate>10.0</updateRate>
-    <robotNamespace>/</robotNamespace>
-    <leftFrontJoint>left_front_wheel_hinge</leftFrontJoint>
-    <rightFrontJoint>right_front_wheel_hinge</rightFrontJoint>
-    <leftRearJoint>left_back_wheel_hinge</leftRearJoint>
-    <rightRearJoint>right_back_wheel_hinge</rightRearJoint>
-    <wheelSeparation>0.4</wheelSeparation>
-    <wheelDiameter>0.16</wheelDiameter>
-    <robotBaseFrame>robot_footprint</robotBaseFrame>
-    <torque>40</torque>
-    <odometryTopic>odom</odometryTopic>
-    <commandTopic>cmd_vel</commandTopic>
-    <topicName>cmd_vel</topicName>
-    <broadcastTF>false</broadcastTF>
-  </plugin>
-</gazebo>
-
-
   <gazebo reference="camera">
-    <material>Gazebo/Green</material>
+    <material>Gazebo/Grey</material>
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
       <camera name="head">
@@ -67,7 +47,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>articulated_bot/camera1</cameraName>
+        <cameraName>mower_bot/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
@@ -112,10 +92,11 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/articulated/laser/scan</topicName>
+        <topicName>/mower_bot/laser/scan</topicName>
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>
   </gazebo>
+
 
 </robot>

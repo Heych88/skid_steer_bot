@@ -12,7 +12,7 @@
   <arg name="debug" default="false"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find mower_bot)/worlds/jackal_race.world"/>  <!-- open_space.world"/> -->
+    <arg name="world_name" value="$(find mower_bot)/worlds/jackal_race.world"/>  <!-- jackal_race, open_space.world  -->
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
@@ -24,7 +24,7 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
   output="screen" args="-urdf -param robot_description -model mower_bot"/>
 
-  <!--launch rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find mower_bot)/launch/Rvizconfig.rviz"/> -->
+  <!--launch rviz-->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mower_bot)/launch/Rvizconfig.rviz"/>
 
 </launch>

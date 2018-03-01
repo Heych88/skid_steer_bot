@@ -4,163 +4,215 @@
 
   <xacro:include filename="$(find mower_bot)/urdf/mower_bot.gazebo" />
 
-  <xacro:property name="wheel_length" value="0.03" />
+  <!-- Length along X-axis, Width along Y-axis, Height along Z-axis -->
+  <xacro:property name="mower_width" value="0.4" />
+  <xacro:property name="mower_length" value="0.46" />
+  <xacro:property name="mower_height" value="0.3" />
+  <xacro:property name="mower_mass" value="8" />
+
+  <xacro:property name="base_x_offset" value="0" />
+
+  <xacro:property name="mower_inertia" value="${mower_mass/10.0}" />
+  <xacro:property name="mower_i_x_pos" value="${wheel_x_offset + mower_length/3.0}" />
+  <xacro:property name="mower_i_z_pos" value="${mower_height/10.0}" />
+
+  <xacro:property name="mower_frame_width" value="${mower_width - 2.1 * wheel_length}" />
+  <xacro:property name="mower_frame_length" value="${mower_length*1.2}" />
+  <xacro:property name="mower_frame_height" value="${mower_height/4.0}" />
+
+  <xacro:property name="hardware_width" value="${mower_width/2.0}" />
+  <xacro:property name="hardware_length" value="${mower_length/2.0}" />
+  <xacro:property name="hardware_height" value="${mower_height/2.0}" />
+  <xacro:property name="hardware_z_offset" value="${hardware_height/2.0}" />
+
+  <xacro:property name="wheel_length" value="0.05" />
   <xacro:property name="wheel_radius" value="0.08" />
-  <xacro:property name="wheel_mass" value="0.5" />
+  <xacro:property name="wheel_mass" value="1" />
   <xacro:property name="wheel_inertia" value="1e-3" />
+  <xacro:property name="wheel_x_offset" value="${base_x_offset - mower_length/2.0}" />
+  <xacro:property name="wheel_y_offset" value="${mower_width/2.0 - wheel_length/2.0}" />
 
-  <xacro:property name="cutter_radius" value="0.16" />
-  <xacro:property name="cutter_height" value="0.08" />
-  <xacro:property name="motor_height" value="0.16" />
-  <xacro:property name="motor_length" value="0.15" />
-  <xacro:property name="motor_width" value="0.2" />
-  <xacro:property name="motor_z_offset" value="${cutter_height + motor_height/2.0 - 0.04}" />
-  <xacro:property name="cutter_mass" value="10" />
-  <xacro:property name="cutter_inertia" value="0.1" />
+  <xacro:property name="caster_radius" value="${wheel_radius/2.0}" />
+  <xacro:property name="caster_x_offset" value="${base_x_offset + mower_length/2.0}" />
+  <xacro:property name="caster_y_offset" value="${wheel_y_offset - 0.07}" />
+  <xacro:property name="caster_z_offset" value="${caster_radius}" />
 
-  <xacro:property name="chassis_length" value="0.26" />
-  <xacro:property name="chassis_depth" value="0.04" />
-  <xacro:property name="chassis_mass" value="15" />
-  <xacro:property name="chassis_inertia" value="0.01" />
-  <xacro:property name="chassis_long_width" value="${2.0*cutter_radius + 2.0*chassis_depth}" />
-  <xacro:property name="chassis_x_offset" value="${cutter_radius + 0.02}" />
-  <xacro:property name="chassis_y_offset" value="${chassis_length/2.0 - chassis_depth/2.0}" />
-  <xacro:property name="chassis_z_offset" value="${cutter_height - chassis_depth}" />
+  <xacro:property name="camerra_width" value="0.05" />
+  <xacro:property name="camerra_length" value="0.05" />
+  <xacro:property name="camerra_height" value="0.05" />
+  <xacro:property name="camerra_x_offset" value="${hardware_length/2.0 + base_x_offset - camerra_length/2.0 + 0.001}" />
+  <xacro:property name="camerra_z_offset" value="${hardware_height - camerra_height/2.0 + 0.001}" />
 
-  <xacro:property name="cutter_height_offset" value="0.03" />
-  <xacro:property name="wheel_x_offset" value="${chassis_x_offset}" />
-  <xacro:property name="wheel_y_offset" value="${chassis_length/2.0 + wheel_length/2.0 + 0.002}" />
+  <xacro:property name="laser_width" value="0.1" />
+  <xacro:property name="laser_length" value="0.1" />
+  <xacro:property name="laser_height" value="0.1" />
+  <xacro:property name="laser_x_offset" value="${base_x_offset}" />
+  <xacro:property name="laser_z_offset" value="${hardware_height + 0.025}" />
 
-  <xacro:property name="laser_z_offset" value="${motor_z_offset + motor_height/2.0}" />
 
   <link name="robot_footprint"></link>
 
   <joint name="robot_footprint_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="robot_footprint"/>
-    <child link="cutter" />
-  </joint>
-
-  <!-- blade cage -->
-  <link name='cutter'>
-    <inertial>
-      <mass value="${cutter_mass}"/>
-      <origin xyz="0 0 ${cutter_height_offset}" rpy=" 0 0 0"/>
-      <inertia
-          ixx="${cutter_inertia}" ixy="0" ixz="0"
-          iyy="${cutter_inertia}" iyz="0"
-          izz="${cutter_inertia}" />
-    </inertial>
-    <collision name='collision'>
-      <origin xyz="0 0 ${cutter_height_offset}" rpy=" 0 0 0"/>
-      <geometry>
-        <cylinder radius="${cutter_radius}" length="${cutter_height}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 ${cutter_height_offset}" rpy=" 0 0 0"/>
-      <geometry>
-        <cylinder radius="${cutter_radius}" length="${cutter_height}"/>
-      </geometry>
-    </visual>
-
-    <collision>
-      <origin xyz="0 0 ${motor_z_offset}" rpy=" 0 0 0"/>
-      <geometry>
-        <box size="${chassis_depth} ${chassis_length} ${chassis_depth}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 ${motor_z_offset}" rpy=" 0 0 0"/>
-      <geometry>
-        <box size="${motor_width} ${motor_length} ${motor_height}"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <joint type="fixed" name="frame_connect">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <child link="chassis"/>
-    <parent link="cutter"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
+    <parent link="robot_footprint" />
+    <child link="chassis" />
   </joint>
 
   <link name='chassis'>
     <inertial>
-      <mass value="${chassis_mass}"/>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <mass value="${mower_mass}"/>
+      <origin xyz="${mower_i_x_pos} 0 ${mower_i_z_pos}" rpy=" 0 0 0"/>
       <inertia
-          ixx="${chassis_inertia}" ixy="0" ixz="0"
-          iyy="${chassis_inertia}" iyz="0"
-          izz="${chassis_inertia}" />
+          ixx="${mower_inertia}" ixy="0" ixz="0"
+          iyy="${mower_inertia}" iyz="0"
+          izz="${mower_inertia}" />
     </inertial>
 
     <collision>
-      <origin xyz="${chassis_x_offset} 0 ${chassis_z_offset}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_depth} ${chassis_length} ${chassis_depth}"/>
+        <box size="${mower_frame_length} ${mower_frame_width} ${mower_frame_height}"/>
       </geometry>
     </collision>
     <visual>
-      <origin xyz="${chassis_x_offset} 0 ${chassis_z_offset}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_depth} ${chassis_length} ${chassis_depth}"/>
+        <box size="${mower_frame_length} ${mower_frame_width} ${mower_frame_height}"/>
       </geometry>
     </visual>
 
+    <!-- blade frame -->
     <collision>
-      <origin xyz="-${chassis_x_offset} 0 ${chassis_z_offset}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_depth} ${chassis_length} ${chassis_depth}"/>
+        <cylinder radius="${mower_width/2.0}" length="${mower_frame_height}"/>
       </geometry>
     </collision>
     <visual>
-      <origin xyz="-${chassis_x_offset} 0 ${chassis_z_offset}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_depth} ${chassis_length} ${chassis_depth}"/>
+        <cylinder radius="${mower_width/2.0}" length="${mower_frame_height}"/>
       </geometry>
     </visual>
 
+    <!-- hardware frame -->
     <collision>
-      <origin xyz="0 ${chassis_y_offset} ${chassis_z_offset}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 ${hardware_z_offset}" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_length} ${chassis_depth}  ${chassis_depth}"/>
+        <box size="${hardware_length} ${hardware_width} ${hardware_height}"/>
       </geometry>
     </collision>
     <visual>
-      <origin xyz="0 ${chassis_y_offset} ${cutter_height}" rpy=" 0 0 0"/>
+      <origin xyz="${base_x_offset} 0 ${hardware_z_offset}" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_long_width} ${chassis_depth}  ${chassis_depth}"/>
+        <box size="${hardware_length} ${hardware_width} ${hardware_height}"/>
       </geometry>
     </visual>
 
-    <collision>
-      <origin xyz="0 -${chassis_y_offset} ${chassis_z_offset}" rpy=" 0 0 0"/>
+    <collision name='left_caster_collision'>
+      <origin xyz="${caster_x_offset} ${caster_y_offset} -${caster_z_offset}" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_length} ${chassis_depth}  ${chassis_depth}"/>
+        <sphere radius="${caster_radius}"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
-    <visual>
-      <origin xyz="0 -${chassis_y_offset} ${cutter_height}" rpy=" 0 0 0"/>
+    <visual name='left_caster_visual'>
+      <origin xyz="${caster_x_offset} ${caster_y_offset} -${caster_z_offset}" rpy=" 0 0 0"/>
       <geometry>
-        <box size="${chassis_long_width} ${chassis_depth}  ${chassis_depth}"/>
+        <sphere radius="${caster_radius}"/>
       </geometry>
     </visual>
+
+    <collision name='right_caster_collision'>
+      <origin xyz="${caster_x_offset} -${caster_y_offset} -${caster_z_offset}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name='right_caster_visual'>
+      <origin xyz="${caster_x_offset} -${caster_y_offset} -${caster_z_offset}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+    </visual>
+
   </link>
 
 
-  <joint type="continuous" name="right_back_wheel_hinge">
-    <origin xyz="-${wheel_x_offset} -${wheel_y_offset} ${chassis_z_offset}" rpy="0 0 0"/>
-    <child link="right_back_wheel"/>
+  <!-- left wheel -->
+  <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="${wheel_x_offset} ${wheel_y_offset} 0" rpy="0 0 0"/>
+    <child link="left_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="10000" velocity="1000"/>
     <joint_properties damping="1.0" friction="1.0"/>
   </joint>
 
-  <link name="right_back_wheel">
+  <link name="left_wheel">
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
+      <inertia
+        ixx="${wheel_inertia}" ixy="0" ixz="0"
+        iyy="${wheel_inertia}" iyz="0"
+        izz="${wheel_inertia}" />
+    </inertial>
+    <collision name="left_wheel_collision">
+      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>100</mu>
+            <mu2>100</mu2>
+            <slip1>0</slip1>
+            <slip2>0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="left_wheel_visual">
+      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </visual>
+  </link>
+
+
+  <!-- right wheel -->
+  <joint type="continuous" name="right_wheel_hinge">
+    <origin xyz="${wheel_x_offset} -${wheel_y_offset} 0" rpy="0 0 0"/>
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+
+  <link name="right_wheel">
     <inertial>
       <mass value="${wheel_mass}"/>
       <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
@@ -169,13 +221,23 @@
           iyy="${wheel_inertia}" iyz="0"
           izz="${wheel_inertia}" />
     </inertial>
-    <collision name="collision">
+    <collision name="right_wheel_collision">
       <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
       <geometry>
         <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>100</mu>
+            <mu2>100</mu2>
+            <slip1>0</slip1>
+            <slip2>0</slip2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
-    <visual>
+    <visual name="right_wheel_visual">
       <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
       <geometry>
         <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
@@ -183,118 +245,11 @@
     </visual>
   </link>
 
-  <joint type="continuous" name="left_back_wheel_hinge">
-    <origin xyz="-${wheel_x_offset} ${wheel_y_offset} ${chassis_z_offset}" rpy="0 0 0"/>
-    <child link="left_back_wheel"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
-
-  <link name="left_back_wheel">
-    <inertial>
-      <mass value="${wheel_mass}"/>
-      <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <inertia
-          ixx="${wheel_inertia}" ixy="0" ixz="0"
-          iyy="${wheel_inertia}" iyz="0"
-          izz="${wheel_inertia}" />
-    </inertial>
-    <collision name="collision">
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </visual>
-  </link>
-
-
-  <joint type="continuous" name="right_front_wheel_hinge">
-    <origin xyz="${wheel_x_offset} -${wheel_y_offset} ${chassis_z_offset}" rpy="0 0 0"/>
-    <child link="right_front_wheel"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
-
-  <link name="right_front_wheel">
-    <inertial>
-      <mass value="${wheel_mass}"/>
-      <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <inertia
-          ixx="${wheel_inertia}" ixy="0" ixz="0"
-          iyy="${wheel_inertia}" iyz="0"
-          izz="${wheel_inertia}" />
-    </inertial>
-    <collision name="collision">
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <joint type="continuous" name="left_front_wheel_hinge">
-    <origin xyz="${wheel_x_offset} ${wheel_y_offset} ${chassis_z_offset}" rpy="0 0 0"/>
-    <child link="left_front_wheel"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
-
-  <link name="left_front_wheel">
-    <inertial>
-      <mass value="${wheel_mass}"/>
-      <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <inertia
-          ixx="${wheel_inertia}" ixy="0" ixz="0"
-          iyy="${wheel_inertia}" iyz="0"
-          izz="${wheel_inertia}" />
-    </inertial>
-    <collision name="collision">
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
-      </geometry>
-    </visual>
-  </link>
-
-
-  <!-- camera -->
-  <joint type="fixed" name="camera_joint">
-    <origin xyz="${motor_width/2} 0 ${motor_z_offset}" rpy="0 0 0"/>
-    <child link="camera"/>
-    <parent link="cutter"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
 
   <link name='camera'>
     <inertial>
       <mass value="0.1"/>
-      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <inertia
           ixx="1e-6" ixy="0" ixz="0"
           iyy="1e-6" iyz="0"
@@ -303,29 +258,29 @@
     <collision name='camera_collision'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size=".05 .05 .05"/>
+        <box size="${camerra_length} ${camerra_width} ${camerra_height}"/>
       </geometry>
     </collision>
-    <visual>
+    <visual name='camera_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size=".05 .05 .05"/>
+        <box size="${camerra_length} ${camerra_width} ${camerra_height}"/>
       </geometry>
     </visual>
   </link>
 
-
-  <!-- laser -->
-  <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0 0 ${laser_z_offset}" rpy="0 0 0"/>
-    <child link="hokuyo"/>
-    <parent link="cutter"/>
+  <joint type="fixed" name="camera_joint">
+    <origin xyz="${camerra_x_offset} 0 ${camerra_z_offset}" rpy="0 0 0"/>
+    <child link="camera"/>
+    <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="10000" velocity="1000"/>
     <joint_properties damping="1.0" friction="1.0"/>
   </joint>
 
+
   <link name='hokuyo'>
+    <pose>0 0 0 0 0 0</pose>
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
@@ -337,15 +292,24 @@
     <collision name='hokuyo_collision'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <box size=".1 .1 .1"/>
+        <box size="${laser_length} ${laser_width} ${laser_height}"/>
       </geometry>
     </collision>
-    <visual>
+    <visual name='hokuyo_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <mesh filename="package://articulated_bot/meshes/hokuyo.dae"/>
+        <mesh filename="package://mower_bot/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
   </link>
+
+  <joint type="fixed" name="hokuyo_joint">
+    <origin xyz="${laser_x_offset} 0 ${laser_z_offset}" rpy="0 0 0"/>
+    <child link="hokuyo"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
 
 </robot>
