@@ -1,0 +1,81 @@
+TrajectoryPlannerROS:
+  max_vel_x: 0.5
+  min_vel_x: 0.1
+  max_vel_theta: 0.5
+  min_in_place_vel_theta: 0.1
+  escape_vel: -0.2
+
+  acc_lim_theta: 0.25
+  acc_lim_x: 0.25
+  acc_lim_y: 0.25
+
+  sim_time: 4
+
+  meter_scoring: true
+  holonomic_robot: false
+
+
+EBandPlannerROS:
+  # Common Parameters
+  xy_goal_tolerance: 0.1  # Distance tolerance for reaching the goal pose
+  yaw_goal_tolerance: 0.15  # Orientation tolerance for reaching the desired goal pose
+  rot_stopped_vel: 0.05  # Angular velocity lower bound that determines if the robot should stop to avoid limit-cycles or locks
+  trans_stopped_vel: 0.05  # Linear velocity lower bound that determines if the robot should stop to avoid limit-cycles or locks
+
+  # Visualization Parameters
+  marker_lifetime: 1.0  # Lifetime of eband visualization markers
+
+  # Trajectory Controller Parameters
+  max_vel_lin: 1.0  # Maximum linear velocity
+  max_vel_th: 3.5  # Maximum angular velocity
+  min_vel_th: 0.0  # Minimum angular velocity
+  min_in_place_vel_th: 3.5  # Minimum in-place angular velocity
+  k_prop: 4.0  # Proportional gain of the PID controller
+  k_damp: 3.5  # Damping gain of the PID controller
+  Ctrl_Rate: 10  # Control rate
+  max_translational_acceleration: 0.25  # Maximum linear acceleration
+  max_rotational_acceleration: 0.5  # Maximum angular acceleration
+  differential_drive: true  # Denotes whether to use the differential drive mode
+  max_acceleration: 0.25  # Maximum allowable acceleration
+
+
+
+TebLocalPlannerROS:
+
+  #odom_topic: odom
+  #map_frame: /odom
+
+  teb_autosize: True
+  dt_ref: 0.3
+  dt_hysteresis: 0.03
+  global_plan_overwrite_orientation: True
+  max_global_plan_lookahead_dist: 1.0
+  feasibility_check_no_poses: 1
+
+  wheelbase: 0.0
+  acc_lim_x: 0.25
+  acc_lim_y: 0.25
+  acc_lim_theta: 1.5
+
+  footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+    type: "circular"
+    radius: 0.3 #
+  #  vertices: [ [-0.2, -0.25], [-0.2, 0.3], [0.2, 0.3], [0.2, -0.25] ]
+
+  # GoalTolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: False
+
+  # Obstacles
+  min_obstacle_dist: 0.4
+  include_costmap_obstacles: True
+  costmap_obstacles_behind_robot_dist: 1.0
+  obstacle_poses_affected: 10
+  costmap_converter_spin_thread: True
+  costmap_converter_rate: 5
+  min_obstacle_dist: 0.35
+  inflation_dist: 0.45
+  dynamic_obstacle_inflation_dist: 0.6
+  obstacle_association_force_inclusion_factor: 2.0
+  obstacle_association_cutoff_factor: 4.0
