@@ -5,18 +5,18 @@
   <xacro:include filename="$(find mower_bot)/urdf/mower_bot.gazebo" />
 
   <!-- Scale the robot size to fit the environment -->
-  <xacro:property name="scale" value="1.25" />
+  <xacro:property name="scale" value="1.0" />
 
   <!-- Length along X-axis, Width along Y-axis, Height along Z-axis -->
-  <xacro:property name="mower_width" value="${scale * 0.5}" />
-  <xacro:property name="mower_length" value="${scale * 0.5}" />
+  <xacro:property name="mower_width" value="${scale * 0.36}" />
+  <xacro:property name="mower_length" value="${scale * 0.46}" />
   <xacro:property name="mower_height" value="${scale * 0.3}" />
   <xacro:property name="mower_mass" value="${scale * 8}" />
 
   <xacro:property name="base_x_offset" value="0" />
 
   <xacro:property name="mower_inertia" value="${mower_mass/10.0}" />
-  <xacro:property name="mower_i_x_pos" value="${wheel_x_offset + mower_length/3.0}" />
+  <xacro:property name="mower_i_x_pos" value="${wheel_x_offset + mower_length/3.0}" /> -->
   <xacro:property name="mower_i_z_pos" value="${mower_height/10.0}" />
 
   <xacro:property name="mower_frame_width" value="${mower_width - 2.1 * wheel_length}" />

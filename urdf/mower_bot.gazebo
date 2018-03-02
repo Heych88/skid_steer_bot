@@ -17,9 +17,9 @@
       <updateRate>10</updateRate>
       <leftJoint>left_wheel_hinge</leftJoint>
       <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>0.625</wheelSeparation>
-      <wheelDiameter>0.20</wheelDiameter>
-      <torque>10000</torque>
+      <wheelSeparation>0.45</wheelSeparation>
+      <wheelDiameter>0.16</wheelDiameter>
+      <torque>1000</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
