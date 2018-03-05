@@ -15,8 +15,14 @@
 
   <xacro:property name="base_x_offset" value="0" />
 
-  <xacro:property name="mower_inertia" value="${mower_mass/10.0}" />
-  <xacro:property name="mower_i_x_pos" value="${wheel_x_offset + mower_length/3.0}" /> -->
+  <!-- inertia = 1/12*m(h^2+d^2) -->
+  <xacro:property name="height_2" value="${mower_height * mower_height}" />
+  <xacro:property name="width_2" value="${mower_width * mower_width}" />
+  <xacro:property name="length_2" value="${mower_length * mower_length}" />
+  <xacro:property name="mower_inertia_xx" value="${mower_mass/12.0 * (height_2 + width_2)}" />
+  <xacro:property name="mower_inertia_yy" value="${mower_mass/12.0 * (height_2 + length_2)}" />
+  <xacro:property name="mower_inertia_zz" value="${mower_mass/12.0 * (width_2 + length_2)}" />
+  <xacro:property name="mower_i_x_pos" value="${wheel_x_offset + mower_length/3.0}" />
   <xacro:property name="mower_i_z_pos" value="${mower_height/10.0}" />
 
   <xacro:property name="mower_frame_width" value="${mower_width - 2.1 * wheel_length}" />
@@ -66,9 +72,9 @@
       <mass value="${mower_mass}"/>
       <origin xyz="${mower_i_x_pos} 0 ${mower_i_z_pos}" rpy=" 0 0 0"/>
       <inertia
-          ixx="${mower_inertia}" ixy="0" ixz="0"
-          iyy="${mower_inertia}" iyz="0"
-          izz="${mower_inertia}" />
+          ixx="${mower_inertia_xx}" ixy="0" ixz="0"
+          iyy="${mower_inertia_yy}" iyz="0"
+          izz="${mower_inertia_zz}" />
     </inertial>
 
     <collision>
@@ -185,6 +191,16 @@
       <geometry>
         <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1</mu>
+            <mu2>1</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <visual name="left_wheel_visual">
       <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
@@ -219,6 +235,16 @@
       <geometry>
         <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1</mu>
+            <mu2>1</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <visual name="right_wheel_visual">
       <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
