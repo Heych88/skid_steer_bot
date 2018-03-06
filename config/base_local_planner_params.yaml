@@ -23,20 +23,20 @@ EBandPlannerROS:
   trans_stopped_vel: 0.05  # Linear velocity lower bound that determines if the robot should stop to avoid limit-cycles or locks
 
   # Visualization Parameters
-  marker_lifetime: 1.0  # Lifetime of eband visualization markers
+  marker_lifetime: 20.0  # Lifetime of eband visualization markers
 
   # Trajectory Controller Parameters
   max_vel_lin: 0.75  # Maximum linear velocity
   max_vel_th: 1.0  # Maximum angular velocity
   min_vel_th: 0.5  # Minimum angular velocity
-  min_in_place_vel_th: 1.0  # Minimum in-place angular velocity
-  k_prop: 4.0  # Proportional gain of the PID controller
+  min_in_place_vel_th: 2.0  # Minimum in-place angular velocity
+  k_prop: 1.0  # Proportional gain of the PID controller
   k_damp: 3.5  # Damping gain of the PID controller
   Ctrl_Rate: 50  # Control rate
-  max_translational_acceleration: 0.5  # Maximum linear acceleration
-  max_rotational_acceleration: 0.5  # Maximum angular acceleration
+  max_translational_acceleration: 2.5  # Maximum linear acceleration
+  max_rotational_acceleration: 1.5  # Maximum angular acceleration
   differential_drive: true  # Denotes whether to use the differential drive mode
-  max_acceleration: 0.5  # Maximum allowable acceleration
+  max_acceleration: 2.5  # Maximum allowable acceleration
 
 
 

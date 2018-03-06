@@ -151,14 +151,13 @@
       </geometry>
       <surface>
         <friction>
-          <ode>
-            <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
-            <kd>${wheel_kd}</kd>
-            <mu>${wheel_mu1}</mu>
-            <mu2>${wheel_mu2}</mu2>
-            <slip1>${wheel_slip1}</slip1>
-            <slip2>${wheel_slip2}</slip2>
-          </ode>
+          <fdir1>1 0 0</fdir1>
+          <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
+          <kd>${wheel_kd}</kd>
+          <mu>${wheel_mu1}</mu>
+          <mu2>${wheel_mu2}</mu2>
+          <slip1>${wheel_slip1}</slip1>
+          <slip2>${wheel_slip2}</slip2>
         </friction>
       </surface>
     </collision>
@@ -196,14 +195,13 @@
       </geometry>
       <surface>
         <friction>
-          <ode>
-            <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
-            <kd>${wheel_kd}</kd>
-            <mu>${wheel_mu1}</mu>
-            <mu2>${wheel_mu2}</mu2>
-            <slip1>${wheel_slip1}</slip1>
-            <slip2>${wheel_slip2}</slip2>
-          </ode>
+          <fdir1>1 0 0</fdir1>
+          <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
+          <kd>${wheel_kd}</kd>
+          <mu>${wheel_mu1}</mu>
+          <mu2>${wheel_mu2}</mu2>
+          <slip1>${wheel_slip1}</slip1>
+          <slip2>${wheel_slip2}</slip2>
         </friction>
       </surface>
     </collision>
@@ -241,14 +239,13 @@
       </geometry>
       <surface>
         <friction>
-          <ode>
-            <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
-            <kd>${wheel_kd}</kd>
-            <mu>${wheel_mu1}</mu>
-            <mu2>${wheel_mu2}</mu2>
-            <slip1>${wheel_slip1}</slip1>
-            <slip2>${wheel_slip2}</slip2>
-          </ode>
+          <fdir1>1 0 0</fdir1>
+          <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
+          <kd>${wheel_kd}</kd>
+          <mu>${wheel_mu1}</mu>
+          <mu2>${wheel_mu2}</mu2>
+          <slip1>${wheel_slip1}</slip1>
+          <slip2>${wheel_slip2}</slip2>
         </friction>
       </surface>
     </collision>
@@ -286,14 +283,13 @@
       </geometry>
       <surface>
         <friction>
-          <ode>
-            <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
-            <kd>${wheel_kd}</kd>
-            <mu>${wheel_mu1}</mu>
-            <mu2>${wheel_mu2}</mu2>
-            <slip1>${wheel_slip1}</slip1>
-            <slip2>${wheel_slip2}</slip2>
-          </ode>
+          <fdir1>1 0 0</fdir1>
+          <kp>${wheel_kp}</kp> <!-- kp and kd for rubber -->
+          <kd>${wheel_kd}</kd>
+          <mu>${wheel_mu1}</mu>
+          <mu2>${wheel_mu2}</mu2>
+          <slip1>${wheel_slip1}</slip1>
+          <slip2>${wheel_slip2}</slip2>
         </friction>
       </surface>
     </collision>
