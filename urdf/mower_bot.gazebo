@@ -1,31 +1,43 @@
 <?xml version="1.0"?>
 <robot>
   <gazebo reference="chassis">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/Green</material>
   </gazebo>
-  <gazebo reference="left_wheel">
+  <gazebo reference="left_front_wheel">
     <material>Gazebo/Black</material>
   </gazebo>
-  <gazebo reference="right_wheel">
+  <gazebo reference="right_front_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="left_back_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="right_back_wheel">
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo>
-    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <legacyMode>false</legacyMode>
-      <alwaysOn>true</alwaysOn>
-      <updateRate>10</updateRate>
-      <leftJoint>left_wheel_hinge</leftJoint>
-      <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>0.45</wheelSeparation>
-      <wheelDiameter>0.16</wheelDiameter>
-      <torque>1000</torque>
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>robot_footprint</robotBaseFrame>
-    </plugin>
-  </gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>100.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <leftFrontJoint>left_front_wheel_hinge</leftFrontJoint>
+    <rightFrontJoint>right_front_wheel_hinge</rightFrontJoint>
+    <leftRearJoint>left_back_wheel_hinge</leftRearJoint>
+    <rightRearJoint>right_back_wheel_hinge</rightRearJoint>
+    <wheelSeparation>0.46</wheelSeparation>
+    <wheelDiameter>0.16</wheelDiameter>
+    <robotBaseFrame>robot_footprint</robotBaseFrame>
+    <torque>200</torque>
+    <MaxForce>5.0</MaxForce>
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <broadcastTF>true</broadcastTF>
+    <covariance_x>0.001</covariance_x> <!-- 0.0001 -->
+    <covariance_y>0.001</covariance_y> <!-- 0.0001 -->
+    <covariance_yaw>0.01</covariance_yaw> <!-- 0.01 -->
+  </plugin>
+</gazebo>
 
 
   <gazebo reference="camera">

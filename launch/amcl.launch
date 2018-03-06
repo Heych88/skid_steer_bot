@@ -22,7 +22,7 @@
     <!-- Translational (d), rotational (a) movement required before performing a filter update. -->
     <!-- lower values impacts how accurate the particles are predicted to the actual bots position -->
     <param name="update_min_d" value="0.1"/> <!-- 0.2 -->
-    <param name="update_min_a" value="0.26"/> <!-- π/6.0 radians 0.5236 -->
+    <param name="update_min_a" value="0.13"/> <!-- π/6.0 radians 0.5236 -->
     <!-- Number of filter updates required before resampling. -->
     <param name="resample_interval" value="2"/> <!-- 2 -->
     <!-- Initial pose mean (x, y, a), used to initialize filter with Gaussian distribution. -->
@@ -72,8 +72,8 @@
     <param name="global_frame_id" value="map"/>
     <!-- Specifies the expected noise in odometry's rotation estimate from the
     rotational component of the robot's motion. -->
-    <param name="odom_alpha1" value="0.05"/> <!-- 0.2 -->
-    <param name="odom_alpha2" value="0.05"/> <!-- 0.2 -->
+    <param name="odom_alpha1" value="0.2"/> <!-- 0.2 -->
+    <param name="odom_alpha2" value="0.2"/> <!-- 0.2 -->
     <param name="odom_alpha3" value="0.2"/> <!-- 0.2 -->
     <param name="odom_alpha4" value="0.2"/> <!-- 0.2 -->
     <!-- Translation-related noise parameter (only used if model is "omni"). -->
