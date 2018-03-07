@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Map server -->
-  <arg name="map_file" default="$(find mower_bot)/maps/jackal_race.yaml"/>
+  <arg name="map_file" default="$(find skid_steer_bot)/maps/jackal_race.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!-- Place map frame at odometry frame -->
@@ -11,7 +11,7 @@
 
   <!-- Localization-->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <remap from="scan" to="mower_bot/laser/scan"/>
+    <remap from="scan" to="skid_steer_bot/laser/scan"/>
 
     <!-- Time with which to post-date the transform that is published, to
     indicate that this transform is valid into the future. -->
@@ -83,19 +83,19 @@
 
   <!-- Move base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find mower_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find mower_bot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find mower_bot)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find mower_bot)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find mower_bot)/config/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find skid_steer_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find skid_steer_bot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find skid_steer_bot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find skid_steer_bot)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find skid_steer_bot)/config/base_local_planner_params.yaml" command="load" />
 
     <remap from="cmd_vel" to="cmd_vel"/>
     <remap from="odom" to="odom"/>
-    <remap from="scan" to="mower_bot/laser/scan"/>
+    <remap from="scan" to="skid_steer_bot/laser/scan"/>
 
     <!-- A fast, interpolated global planner built as a more flexible replacement to navfn.
     (navfn/NavfnROS, global_planner/GlobalPlanner, carrot_planner/CarrotPlanner) -->
-    <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" />
+    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
 
     <!-- provides an interface for local planners used in navigation -->
     <!-- base_local_planner/TrajectoryPlannerROS, eband_local_planner/EBandPlannerROS, teb_local_planner/TebLocalPlannerROS  -->

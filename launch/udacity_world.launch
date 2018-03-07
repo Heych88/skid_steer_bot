@@ -2,7 +2,7 @@
 
 <launch>
 
-  <include file="$(find mower_bot)/launch/robot_description.launch"/>
+  <include file="$(find skid_steer_bot)/launch/robot_description.launch"/>
 
   <arg name="world" default="empty"/>
   <arg name="paused" default="false"/>
@@ -12,7 +12,7 @@
   <arg name="debug" default="false"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find mower_bot)/worlds/jackal_race.world"/>  <!-- jackal_race, open_space.world  -->
+    <arg name="world_name" value="$(find skid_steer_bot)/worlds/jackal_race.world"/>  <!-- jackal_race, open_space.world  -->
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
@@ -22,9 +22,9 @@
 
   <!--spawn a robot in gazebo world-->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
-  output="screen" args="-urdf -param robot_description -model mower_bot"/>
+  output="screen" args="-urdf -param robot_description -model skid_steer_bot"/>
 
   <!--launch rviz-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mower_bot)/launch/Rvizconfig.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find skid_steer_bot)/launch/Rvizconfig.rviz"/>
 
 </launch>

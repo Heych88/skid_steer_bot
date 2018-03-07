@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 
-<robot name="mower_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="skid_steer_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find mower_bot)/urdf/mower_bot.gazebo" />
+  <xacro:include filename="$(find skid_steer_bot)/urdf/skid_steer_bot.gazebo" />
 
   <!-- Scale the robot size to fit the environment -->
   <xacro:property name="scale" value="1.0" />
@@ -354,7 +354,7 @@
     <visual name='hokuyo_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <mesh filename="package://mower_bot/meshes/hokuyo.dae"/>
+        <mesh filename="package://skid_steer_bot/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
   </link>

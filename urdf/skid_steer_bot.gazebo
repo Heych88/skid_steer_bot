@@ -59,7 +59,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>mower_bot/camera1</cameraName>
+        <cameraName>skid_steer_bot/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
@@ -104,7 +104,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/mower_bot/laser/scan</topicName>
+        <topicName>/skid_steer_bot/laser/scan</topicName>
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>

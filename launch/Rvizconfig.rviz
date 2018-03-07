@@ -102,7 +102,7 @@ Visualization Manager:
     - Class: rviz/Camera
       Enabled: true
       Image Rendering: background and overlay
-      Image Topic: /mower_bot/camera1/image_raw
+      Image Topic: /skid_steer_bot/camera1/image_raw
       Name: Camera
       Overlay Alpha: 0.5
       Queue Size: 2
@@ -146,7 +146,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.100000001
       Style: Spheres
-      Topic: /mower_bot/laser/scan
+      Topic: /skid_steer_bot/laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
