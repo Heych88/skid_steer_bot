@@ -30,9 +30,9 @@
     <param name="initial_pose_y" value="0.0"/> <!-- 0.0 -->
     <param name="initial_pose_a" value="0.0"/> <!-- 0.0 -->
     <!-- Initial covariance (xx, yy, aa), used to initialize filter with Gaussian distribution. -->
-    <param name="initial_cov_xx" value="0.0"/> <!-- 0.0 -->
-    <param name="initial_cov_yy" value="0.0"/> <!-- 0.0 -->
-    <param name="initial_cov_aa" value="0.0"/> <!-- 0.0 -->
+    <param name="initial_cov_xx" value="1.0"/> <!-- 0.0 -->
+    <param name="initial_cov_yy" value="1.0"/> <!-- 0.0 -->
+    <param name="initial_cov_aa" value="1.0"/> <!-- 0.0 -->
 
     <param name="kld_err" value="0.05"/>
     <param name="kld_z" value="0.99"/>
@@ -72,10 +72,14 @@
     <param name="global_frame_id" value="map"/>
     <!-- Specifies the expected noise in odometry's rotation estimate from the
     rotational component of the robot's motion. -->
-    <param name="odom_alpha1" value="0.2"/> <!-- 0.2 -->
-    <param name="odom_alpha2" value="0.2"/> <!-- 0.2 -->
-    <param name="odom_alpha3" value="0.2"/> <!-- 0.2 -->
-    <param name="odom_alpha4" value="0.2"/> <!-- 0.2 -->
+    <!-- 1 expected noise in odometry's rotation estimate from the rotational component -->
+    <param name="odom_alpha1" value="0.5"/> <!-- 0.2 -->
+    <!-- 2 expected noise in odometry's rotation estimate from the translational component -->
+    <param name="odom_alpha2" value="0.4"/> <!-- 0.2 -->
+    <!-- 3 expected noise in odometry's translation estimate from the translational component -->
+    <param name="odom_alpha3" value="0.1"/> <!-- 0.2 -->
+    <!-- 4 expected noise in odometry's translation estimate from the rotational component -->
+    <param name="odom_alpha4" value="0.4"/> <!-- 0.2 -->
     <!-- Translation-related noise parameter (only used if model is "omni"). -->
     <param name="odom_alpha5" value="0.2"/> <!-- 0.2 -->
 
@@ -95,7 +99,7 @@
 
     <!-- A fast, interpolated global planner built as a more flexible replacement to navfn.
     (navfn/NavfnROS, global_planner/GlobalPlanner, carrot_planner/CarrotPlanner) -->
-    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" />
 
     <!-- provides an interface for local planners used in navigation -->
     <!-- base_local_planner/TrajectoryPlannerROS, eband_local_planner/EBandPlannerROS, teb_local_planner/TebLocalPlannerROS  -->
@@ -104,8 +108,9 @@
     <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/> -->
     <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
     <param name="base_local_planner" value="eband_local_planner/EBandPlannerROS"/>
-    <param name="controller_frequency" value="50.0" />
+    <param name="controller_frequency" value="30.0" />
     <param name="planner_frequency" value="10.0" />
+
 
   </node>
 

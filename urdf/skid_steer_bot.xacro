@@ -11,7 +11,7 @@
   <xacro:property name="mower_width" value="${scale * 0.46}" />
   <xacro:property name="mower_length" value="${scale * 0.46}" />
   <xacro:property name="mower_height" value="${scale * 0.3}" />
-  <xacro:property name="mower_mass" value="${scale * 8}" />
+  <xacro:property name="mower_mass" value="${scale * 10}" />
 
   <xacro:property name="base_x_offset" value="0" />
 
@@ -40,8 +40,6 @@
   <xacro:property name="wheel_inertia" value="${scale * 1e-3}" />
   <xacro:property name="wheel_x_offset" value="${base_x_offset + mower_length/2.0}" />
   <xacro:property name="wheel_y_offset" value="${mower_width/2.0 - wheel_length/2.0}" />
-
-
 
   <xacro:property name="camerra_width" value="0.05" />
   <xacro:property name="camerra_length" value="0.05" />

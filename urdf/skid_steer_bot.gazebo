@@ -7,13 +7,13 @@
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="right_front_wheel">
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="left_back_wheel">
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="right_back_wheel">
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
 
   <gazebo>

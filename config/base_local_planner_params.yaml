@@ -18,7 +18,7 @@ TrajectoryPlannerROS:
 EBandPlannerROS:
   # Common Parameters
   xy_goal_tolerance: 0.15  # Distance tolerance for reaching the goal pose
-  yaw_goal_tolerance: 0.2  # Orientation tolerance for reaching the desired goal pose
+  yaw_goal_tolerance: 0.13  # Orientation tolerance for reaching the desired goal pose
   rot_stopped_vel: 0.05  # Angular velocity lower bound that determines if the robot should stop to avoid limit-cycles or locks
   trans_stopped_vel: 0.05  # Linear velocity lower bound that determines if the robot should stop to avoid limit-cycles or locks
 
