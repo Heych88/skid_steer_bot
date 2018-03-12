@@ -7,7 +7,7 @@ The model uses the Adaptive Monte Carlo Localisation (AMCL) method for localisat
 
 ## Project website
 
-This repository has an accompanying project page, contains the theory and details behind the code. It can be found [here](https://www.haidynmcleod.com/ROS_diff_drive_navigation).
+This repository has an accompanying project page, contains the theory and details behind the code. It can be found [here](https://www.haidynmcleod.com/ros-skid-steer-navigation).
 
 ## Prerequisites
 
