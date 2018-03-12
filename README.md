@@ -18,12 +18,12 @@ This repository has an accompanying project page, contains the theory and detail
 3. Install ROS nodes required for the local and global planners, amcl, maps and motor control for the navigation stack.
 
 ```sh
+$ sudo apt-get update
 $ sudo apt-get install ros-kinetic-move-base
 $ sudo apt-get install ros-kinetic-map-server
 $ sudo apt-get install ros-kinetic-amcl
 $ sudo apt-get install ros-kinetic-eband-local-planner
 $ sudo apt-get install ros-kinetic-global-planner
-$ sudo apt-get install ros-kinetic-carrot-planner
 ```
 
 ## Installing
